@@ -21,17 +21,18 @@
     <div class="container">
       <div class="header">
         <ul class="nav nav-pills pull-right">
-          <li class="active"><a ng-href="#">Home</a></li>
+          <li ui-sref-active="active"><a ui-sref="login">Login</a></li>
           <!-- //angularfire -->
-          <li><a ng-href="#">link</a></li>
+          <li ui-sref-active="active"><a ui-sref="account" >Account</a></li>
+          <li ui-sref-active="active"><a ui-sref="chat" >Chat</a></li>
           </ul>
         <h3 class="text-muted">The Underground</h3>
       </div>
 
-      <div ng-include="'views/chat.html'" ng-controller="ChatCtrl"></div>
+      <div ui-view></div>
 
       <div class="footer">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team, and from Firebase</p>
+        <p><span class="glyphicon glyphicon-heart"></span> from Dadi</p>
       </div>
     </div>
 
@@ -78,6 +79,7 @@
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
+        <script src="scripts/config.router.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/angularfire/config.js"></script>
         <script src="scripts/angularfire/firebase.utils.js"></script>

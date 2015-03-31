@@ -8,8 +8,9 @@
  *
  * Main module of the application.
  */
-angular.module('theundergroundApp', [
+var app = angular.module('theundergroundApp', [
     'firebase',
     'firebase.utils',
-    'simpleLogin'
+    'simpleLogin',
+    'ui.router'
   ]);
