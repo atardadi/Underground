@@ -8,6 +8,14 @@
  */
 angular.module('theundergroundApp')
   .controller('ChatCtrl', function ($scope, fbutil, $timeout) {
+    function alert(msg) {
+      $scope.err = msg;
+      $timeout(function() {
+        $scope.err = null;
+      }, 5000);
+    }
+
+
     // synchronize a read-only, synchronized array of messages, limit to most recent 10
     $scope.messages = fbutil.syncArray('messages', {limitToLast: 10});
 
@@ -24,10 +32,5 @@ angular.module('theundergroundApp')
       }
     };
 
-    function alert(msg) {
-      $scope.err = msg;
-      $timeout(function() {
-        $scope.err = null;
-      }, 5000);
-    }
+    
   });

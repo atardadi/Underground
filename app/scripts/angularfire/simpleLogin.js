@@ -99,6 +99,18 @@
 
     .factory('createProfile', function(fbutil, $q, $timeout) {
       return function(id, email, name) {
+        function firstPartOfEmail(email) {
+          return ucfirst(email.substr(0, email.indexOf('@'))||'');
+        }
+
+        function ucfirst (str) {
+          // credits: http://kevin.vanzonneveld.net
+          str += '';
+          var f = str.charAt(0).toUpperCase();
+          return f + str.substr(1);
+        }
+
+
         var ref = fbutil.ref('users', id), def = $q.defer();
         ref.set({email: email, name: name||firstPartOfEmail(email)}, function(err) {
           $timeout(function() {
@@ -111,16 +123,7 @@
           });
         });
 
-        function firstPartOfEmail(email) {
-          return ucfirst(email.substr(0, email.indexOf('@'))||'');
-        }
-
-        function ucfirst (str) {
-          // credits: http://kevin.vanzonneveld.net
-          str += '';
-          var f = str.charAt(0).toUpperCase();
-          return f + str.substr(1);
-        }
+        
 
         return def.promise;
       };

@@ -12,6 +12,8 @@ module.exports = function (grunt) {
   // Load grunt tasks automatically
   require('load-grunt-tasks')(grunt);
 
+
+
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
@@ -21,6 +23,9 @@ module.exports = function (grunt) {
     dist: 'dist'
   };
 
+
+  grunt.loadNpmTasks('grunt-htmlhint');
+  grunt.loadNpmTasks('grunt-contrib-sass');
   // Define the configuration for all the tasks
   grunt.initConfig({
 
@@ -45,7 +50,8 @@ module.exports = function (grunt) {
         tasks: ['newer:jshint:test', 'karma']
       },
       compass: {
-        files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
+        files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}',
+                '<%= yeoman.app %>/bower_components/bootstrap-sass-official/{,*/}*.{scss,sass}'],
         tasks: ['compass:server', 'autoprefixer']
       },
       gruntfile: {
@@ -114,7 +120,10 @@ module.exports = function (grunt) {
     jshint: {
       options: {
         jshintrc: '.jshintrc',
-        reporter: require('jshint-stylish')
+        reporter: require('jshint-stylish'),
+        ignores: ['<%= yeoman.app %>/scripts/app.js',
+                  '<%= yeoman.app %>/scripts/angularfire/firebase.utils.js'],
+        reporterOutput: 'logs/jshint.txt'
       },
       all: {
         src: [
@@ -175,10 +184,13 @@ module.exports = function (grunt) {
       }
     },
 
+    
+    
+
     // Compiles Sass to CSS and generates necessary files if requested
     compass: {
       options: {
-        sassDir: '<%= yeoman.app %>/styles',
+        sassDir: '<%= yeoman.app %>/styles/sass',
         cssDir: '.tmp/styles',
         generatedImagesDir: '.tmp/images/generated',
         imagesDir: '<%= yeoman.app %>/images',
@@ -240,7 +252,7 @@ module.exports = function (grunt) {
       html: ['<%= yeoman.dist %>/{,*/}*.html'],
       css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
       options: {
-        assetsDirs: ['<%= yeoman.dist %>','<%= yeoman.dist %>/images']
+        assetsDirs: ['<%= yeoman.dist %>', '<%= yeoman.dist %>/images']
       }
     },
 
@@ -381,6 +393,24 @@ module.exports = function (grunt) {
       ]
     },
 
+    //htmlHint
+    htmlhint : {
+      templates: {
+        options: {
+          'attr-lower-case': true,
+          'tag-pair' : true,
+          'tag-self-close' : true,
+          'tagname-lowercase' : true,
+          'id-class-unique' :true,
+          'src-not-empty' : true,
+          'img-alt-required' : true
+        },
+        src: ['<%= yeoman.app %>/404.html',
+              '<%= yeoman.app %>/index.html',
+              '<%= yeoman.app %>/views/**/*.html']
+      }
+    },
+
     // Test settings
     karma: {
       unit: {
@@ -433,12 +463,13 @@ module.exports = function (grunt) {
     'uglify',
     'filerev',
     'usemin',
+    'htmlhint',
     'htmlmin'
   ]);
 
   grunt.registerTask('default', [
     'newer:jshint',
-    'test',
+    //'test',
     'build'
   ]);
 };

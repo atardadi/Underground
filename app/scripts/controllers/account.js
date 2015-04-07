@@ -6,12 +6,38 @@
  * # AccountCtrl
  * Provides rudimentary account management functions.
  */
-angular.module('theundergroundApp')
-  .controller('AccountCtrl', function ($scope, user, simpleLogin, fbutil, $timeout) {
+app.controller('AccountCtrl', function ($scope, user, simpleLogin, fbutil, $timeout) {
     $scope.user = user;
     $scope.logout = simpleLogin.logout;
     $scope.messages = [];
     var profile;
+    function error(err) {
+      alert(err, 'danger');
+    }
+
+    function success(msg) {
+      alert(msg, 'success');
+    }
+
+    function alert(msg, type) {
+      var obj = {text: msg+'', type: type};
+      $scope.messages.unshift(obj);
+      $timeout(function() {
+        $scope.messages.splice($scope.messages.indexOf(obj), 1);
+      }, 10000);
+    }
+
+    function loadProfile(user) {
+      if( profile ) {
+        profile.$destroy();
+      }
+      profile = fbutil.syncObject('users/'+user.uid);
+      profile.$bindTo($scope, 'profile');
+    }
+
+
+
+    
     loadProfile(user);
 
     $scope.changePassword = function(oldPass, newPass, confirm) {
@@ -41,27 +67,5 @@ angular.module('theundergroundApp')
         .catch(error);
     };
 
-    function error(err) {
-      alert(err, 'danger');
-    }
-
-    function success(msg) {
-      alert(msg, 'success');
-    }
-
-    function alert(msg, type) {
-      var obj = {text: msg+'', type: type};
-      $scope.messages.unshift(obj);
-      $timeout(function() {
-        $scope.messages.splice($scope.messages.indexOf(obj), 1);
-      }, 10000);
-    }
-
-    function loadProfile(user) {
-      if( profile ) {
-        profile.$destroy();
-      }
-      profile = fbutil.syncObject('users/'+user.uid);
-      profile.$bindTo($scope, 'profile');
-    }
+    
   });
