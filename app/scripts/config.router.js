@@ -24,6 +24,18 @@ function ($stateProvider, $urlRouterProvider) {
         url: "/chat",
         templateUrl: "views/chat.html",
         controller: 'ChatCtrl'
+    }).state('parties', {
+        url: "/parties",
+        templateUrl: "views/parties.html",
+        controller: 'PartiesCtrl'
+    }).state('party', {
+        url: "/party/:partyId",
+        templateUrl: "views/party.html",
+        controller: 'PartiesCtrl'
+    }).state('party_create', {
+        url: "/create",
+        templateUrl: "views/party_create.html",
+        controller: 'PartyCreateCtrl'
     });
 
     
