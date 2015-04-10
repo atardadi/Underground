@@ -12,5 +12,6 @@ var app = angular.module('theundergroundApp', [
     'firebase',
     'firebase.utils',
     'simpleLogin',
-    'ui.router'
+    'ui.router',
+    'ngMessages'
   ]);

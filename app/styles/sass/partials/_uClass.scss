@@ -1,0 +1,6 @@
+@import "uVars";
+@import "uMixins";
+
+input.ng-touched.ng-invalid {
+  border: 2px #ff0000 solid;
+}

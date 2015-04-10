@@ -1,11 +1,13 @@
+var PartyCreate = require('../pages/create.party.page.js');
+
 describe('Party Create:', function() {
 	describe('When clicking on create party', function() {
-		var name;
-
+		var name,
+			partyCreate = new PartyCreate();
 
 		beforeEach(function() {
 			browser.get('http://localhost:9000/#/parties');
-			var party = element(by.buttonText('Create New')).click();	
+			var party = partyCreate.createButton.click();	
 			
 			browser.waitForAngular();
 		});	

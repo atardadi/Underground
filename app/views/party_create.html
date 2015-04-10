@@ -1,1 +1,28 @@
-<h1>Hello from party create</h1>
+<h2>Create New Party</h2>
+<div class="row">
+	<div class="col-md-6">
+		<form name="partyCreate" ng-submit="createParty()" novalidate>
+			<div forminput>
+				<label for="name">Party Name</label>
+				<input id="name" name="name" ng-model="name" type="text" required  placeholder="Insert party name..." />
+				<ng-messages class="help-block" for="partyCreate.name.$error">
+			        <ng-message when="required">Party Name is required</ng-message>
+		        </ng-messages>
+				
+			</div>
+
+			<div forminput>
+				<label for="date">Date</label>
+				<input id="date" type="date" name="date" placeholder="date?" />
+			</div>
+
+			<button type="submit" required class="btn btn-submit btn-primary">Submit</button>
+		</form>
+	</div>
+
+	<div class="col-md-6">
+		<pre>
+			{{partyCreate | json}}
+		</pre>
+	</div>
+</div>

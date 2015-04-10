@@ -1,0 +1,8 @@
+@import "../partials/uVars";
+@import "../partials/uMixins";
+@import "../partials/uClass";
+
+
+input.ng-touched.ng-invalid {
+  border: 2px #ff0000 solid;
+}

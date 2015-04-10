@@ -193,7 +193,7 @@ module.exports = function (grunt) {
           expand: true,
           cwd: '<%= yeoman.app %>/styles/sass',
           src: ['{,*/}*.{scss,sass}'],
-          dest: '<%= yeoman.dist %>/styles/css',
+          dest: '<%= yeoman.app %>/styles/css',
           ext: '.css'
         }]
       }
@@ -445,7 +445,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    'sass',
+    'sass:dist',
     'htmlhint',
     'csslint:strict',
     'wiredep',
