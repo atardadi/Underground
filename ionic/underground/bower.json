@@ -1,0 +1,9 @@
+{
+  "name": "underground",
+  "private": "true",
+  "devDependencies": {
+    "ionic": "driftyco/ionic-bower#1.0.0-rc.3",
+    "lodash": "~3.7.0",
+    "angular-google-maps": "~2.0.19"
+  }
+}

@@ -1,0 +1,18 @@
+[
+    { 
+        "id": 1,
+        "name": "My Party",
+        "type": "Trance", 
+        "date": "Sun Apr 19 2015 14:17:39 GMT+0300 (IDT)",
+        "description": "This is a very nice party as well",
+        "published": true
+    },
+    { 
+        "id": 2,
+        "name": "My Other Party",
+        "type": "Dance", 
+        "date": "Sun Apr 14 2015 14:17:39 GMT+0300 (IDT)",
+        "description": "This is a very nice party",
+        "published": true
+    }
+]

@@ -2,7 +2,6 @@ describe('Party List:', function() {
 	describe('When clicking on party', function() {
 		var name;
 
-
 		beforeEach(function() {
 			browser.get('http://localhost:9000/#/parties');
 			var party = element.all(by.binding('name')).first();	

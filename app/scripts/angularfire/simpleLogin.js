@@ -28,7 +28,7 @@
       var fns = {
         auth: auth,
 
-        user: null, //todo use getUser() and remove this var
+        //user: null, //todo use getUser() and remove this var
 
         initialized: false,
 
