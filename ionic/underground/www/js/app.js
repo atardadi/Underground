@@ -5,9 +5,9 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 
-angular.module('underground', ['ionic', 'underground.controllers'])
+angular.module('underground', ['ionic', 'ngCordova','underground.controllers','angular-cache'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, CacheFactory) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -19,6 +19,17 @@ angular.module('underground', ['ionic', 'underground.controllers'])
       StatusBar.styleDefault();
     }
 
+
+    //Create all the caches
+    if (!CacheFactory.get('partiesCache')) {
+      
+      CacheFactory.createCache('partiesCache', {
+        deleteOnExpire: 'aggressive',
+        recycleFreq: 60000,
+        storageMode: 'localStorage',
+        maxAge: 5 * 1000
+      });
+    }
 
   });
 })
@@ -42,11 +53,12 @@ angular.module('underground', ['ionic', 'underground.controllers'])
     }
   })
 
-  .state('app.browse', {
-    url: "/browse",
+  .state('app.dialogs', {
+    url: "/dialogs",
     views: {
       'menuContent': {
-        templateUrl: "templates/browse.html"
+        templateUrl: "templates/dialogs.html",
+        controller: 'dialogsCtrl'
       }
     }
   })
@@ -77,7 +89,15 @@ angular.module('underground', ['ionic', 'underground.controllers'])
       }
     }
   })
-
+  .state('app.location-map', {
+    url: "/parties/location-map/:location",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/location-map.html",
+        controller: 'LocationCtrl'
+      }
+    }
+  })
   .state('app.single', {
     url: "/playlists/:playlistId",
     views: {

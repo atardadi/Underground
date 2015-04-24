@@ -1,8 +1,12 @@
 'use strict';
 
-angular.module('underground.servies',[])
-.factory('parties',['$http', '$ionicLoading', '$timeout',
-            function($http,$ionicLoading,$timeout) {
+angular.module('underground.services',[])
+.factory('parties',['$http', '$ionicLoading', '$timeout','CacheFactory','$q',
+            function($http,$ionicLoading,$timeout,CacheFactory,$q) {
+
+    var partiesCache = CacheFactory.get('partiesCache');
+    
+
 
     var handleError = function (response) {
         // The API response from the server should be returned in a
@@ -26,52 +30,89 @@ angular.module('underground.servies',[])
 
     //TODO angular cache
     var getParties = function(forceRefresh) {
-        forceRefresh = forceRefresh || false; 
+               
+        var deferred = $q.defer();
 
-        $ionicLoading.show({
-            template: "Loading..."
-        });
 
-        var url = 'data/parties.json';
-        $ionicLoading.show({
-            template: "Loading..."
-        });
+        if (!forceRefresh) {
+            var partiesData = partiesCache.get('parties');    
+        }
+        
+        if (partiesData) {
+            console.log('Data in cache',partiesData);
+            deferred.resolve(partiesData);
+            return deferred.promise;
+        }
+        else {
+            $ionicLoading.show({
+                template: "Loading..."
+            });
+            forceRefresh = forceRefresh || false; 
 
-        var request = $http({
-            method: 'GET',
-            url: url
-        });
+            var url = 'data/parties.json';
+            $ionicLoading.show({
+                template: "Loading..."
+            });
 
-        return ( request.then(handleSuccess, handleError) );
+            var request = $http({
+                method: 'GET',
+                url: url
+            });
+
+            return request
+                   .then(function(response) {
+                        $timeout(function(){
+                            $ionicLoading.hide();
+                        }, 1000);
+                        console.log('From $http');
+                        partiesCache.put('parties',response.data);
+                        return response.data;
+                    })
+                    .catch(handleError);    
+        }
+
+        
     };
 
     var getById = function(partyId) {
+        var deferred = $q.defer();
 
-        $ionicLoading.show({
-            template: "Loading..."
-        });
+        var partiesData = partiesCache.get('parties');
+        if (partiesData) { //Data in cache
+            var party = _.chain(partiesData)
+                         .find({"id" : partyId})
+                         .value();
+            deferred.resolve(party); 
+            return deferred.promise; 
+        }
+        else {
+                $ionicLoading.show({
+                template: "Loading..."
+            });
 
-        var url = 'data/parties.json';
-        $ionicLoading.show({
-            template: "Loading..."
-        });
+            var url = 'data/parties.json';
+            $ionicLoading.show({
+                template: "Loading..."
+            });
 
-        var request = $http({
-            method: 'GET',
-            url: url
-        });
+            var request = $http({
+                method: 'GET',
+                url: url
+            });
 
-        return ( request
-                .then(function(response) {
-                    var parties = response.data;
-                    $timeout(function(){
-                               $ionicLoading.hide();
-                            }, 1000);
-                    var party = _.chain(parties)
-                     .find({"id" : partyId})
-                     .value();
-                    return party;
-                }, handleError) );
+            return ( request
+                    .then(function(response) {
+                        var parties = response.data;
+                        $timeout(function(){
+                                   $ionicLoading.hide();
+                                }, 1000);
+                        var party = _.chain(parties)
+                         .find({"id" : partyId})
+                         .value();
+                        return party;
+                    }, handleError) );    
+        }     
+        
     };    
  	
 

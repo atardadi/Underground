@@ -1,4 +1,4 @@
-angular.module('underground.controllers', ['underground.servies'])
+angular.module('underground.controllers', ['uiGmapgoogle-maps','underground.services'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
   // Form data for the login modal
@@ -63,7 +63,8 @@ angular.module('underground.controllers', ['underground.servies'])
   
 }])
 
-.controller('PartyCtrl', ['$scope','$stateParams','parties','$ionicPopup',function($scope,$stateParams,parties,$ionicPopup) {
+.controller('PartyCtrl', ['$scope','$rootScope','$stateParams','parties','$ionicPopup',
+                  function($scope, $rootScope, $stateParams,parties,$ionicPopup) {
   $scope.togglePublish = function() {
     if ($scope.party.published)
     {
@@ -84,11 +85,41 @@ angular.module('underground.controllers', ['underground.servies'])
   $scope.partyId = Number($stateParams.partyId);
   parties.getById($scope.partyId)
   .then(function(data) {
-    $scope.party = data;
+    $rootScope.party = data;
+
   });
 
   
 }])
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
-});
+})
+.controller('LocationCtrl', ['$scope', '$rootScope', function($scope,$rootScope){
+  //$scope.locationId = Number($stateParams.id);
+  
+  $scope.map = {
+    center : $rootScope.party.location.coordinates,
+    zoom: 12
+  };
+
+  $scope.marker = {
+    longitude: $rootScope.party.location.coordinates.longitude,
+    latitude : $rootScope.party.location.coordinates.latitude,
+    title: $rootScope.party.name + '<br/>Tap for directions',
+    showWindow : true
+  };
+
+  $scope.locationClicked = function(marker) {
+    
+  };
+}])
+.controller('dialogsCtrl', ['$scope', '$cordovaDialogs', function($scope, $cordovaDialogs){
+  
+  $scope.alertMe = function() {
+    $cordovaDialogs.alert('Wow!', alertClosed, 'Alert Title', 'Dismiss');
+    var alertClosed = function() {
+
+    };
+  }
+  
+}]);

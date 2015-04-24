@@ -13,11 +13,14 @@
   		<div class="item">
   			<p>Will see you on {{party.date | date:'yyyy-MM-dd HH:mm'}}</p>
   		</div>
-	    <!-- <div class="item item-checkbox">
-	    	<label class="checkbox"><input type="checkbox" id="published" ng-model="party.published"></label>
-	    	
-	    	<h3>{{party.published ? 'Published' : 'Not Published'}}</h3>
-    	</div> -->
+	    
+      <div class="item">
+        <p>Location: {{party.location.name}}</p>
+        <a class="button-light button" ui-sref="app.location-map">
+          <i class="icon ion-location"></i>
+        </a>
+      </div>
+
     	<div class="item item-toggle">
 	    	<h3>{{party.published ? 'Published' : 'Not Published'}}</h3>
 	    	<label class="toggle toggle-energized">

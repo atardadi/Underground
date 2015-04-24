@@ -5,7 +5,15 @@
         "type": "Trance", 
         "date": "Sun Apr 19 2015 14:17:39 GMT+0300 (IDT)",
         "description": "This is a very nice party as well",
-        "published": true
+        "published": true,
+        "location" : {
+            "name" : "Somewhere",
+            "coordinates" : {
+                "longitude": 32.1004545,
+                "latitude": 34.8161579
+            }
+            
+        }
     },
     { 
         "id": 2,
@@ -13,6 +21,14 @@
         "type": "Dance", 
         "date": "Sun Apr 14 2015 14:17:39 GMT+0300 (IDT)",
         "description": "This is a very nice party",
-        "published": true
+        "published": true,
+        "location" : {
+            "name" : "Somewhere Else",
+            "coordinates" : {
+                "longitude": 32.1004545,
+                "latitude": 34.8161579
+            }
+            
+        }
     }
 ]
