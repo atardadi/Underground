@@ -1,3 +1,3 @@
 # Underground
-Platform for party orginizing!
+Platform for party orginizing and fun!
 
