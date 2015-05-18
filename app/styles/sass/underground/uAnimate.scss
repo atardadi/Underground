@@ -1,0 +1,43 @@
+@import "../partials/uVars";
+@import "../partials/uMixins";
+@import "../partials/uClass";
+
+
+[ui-view].ng-enter,
+[ng-message].ng-enter {
+	opacity: 0;
+	transition: opacity 1s;
+}
+
+
+[ui-view].ng-enter-active,
+[ng-message].ng-enter-active {
+	opacity: 1;
+}
+
+.und-repeat-item.ng-enter,
+.und-repeat-item.ng-leave {
+	transition: transform 750ms;
+}
+
+.und-repeat-item.ng-leave-active,
+.und-repeat-item.ng-enter {
+	transform : translate3d(-100%,0,0);
+}
+
+
+.und-repeat-item.ng-enter-active {
+	transform : translate3d(0,0,0);
+}
+
+
+.ng-enter-stagger, 
+.ng-leave-stagger {
+	transition-delay : 100ms;
+	transition-duration: 0;
+}
+
+.form-control.ng-invalid-add,
+.form-control.ng-invalid-remove {
+	transition: 350ms border-color;
+}
