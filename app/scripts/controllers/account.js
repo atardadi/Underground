@@ -6,8 +6,8 @@
  * # AccountCtrl
  * Provides rudimentary account management functions.
  */
-app.controller('AccountCtrl', function ($scope, user, simpleLogin, fbutil, $timeout) {
-    $scope.user = user;
+app.controller('AccountCtrl', function ($scope, simpleLogin, fbutil, $timeout) {
+    $scope.user = null;// = user;
     $scope.logout = simpleLogin.logout;
     $scope.messages = [];
     var profile;
@@ -38,7 +38,7 @@ app.controller('AccountCtrl', function ($scope, user, simpleLogin, fbutil, $time
 
 
     
-    loadProfile(user);
+    //loadProfile(user);
 
     $scope.changePassword = function(oldPass, newPass, confirm) {
       $scope.err = null;
